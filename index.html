@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mobile Money and Shocks</title>
+<meta name="description" content="A short development economics research project: does mobile money help rural households in Uganda smooth consumption after rainfall shocks?">
+<style>
+  :root {
+    --bg: #fbfaf7;
+    --fg: #1f2328;
+    --muted: #5b626b;
+    --accent: #1f6f5c;
+    --rule: #e3e0d8;
+    --card: #ffffff;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #15181b;
+      --fg: #e6e6e3;
+      --muted: #9aa1a8;
+      --accent: #5fc2a6;
+      --rule: #2c3136;
+      --card: #1c2024;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #15181b;
+    --fg: #e6e6e3;
+    --muted: #9aa1a8;
+    --accent: #5fc2a6;
+    --rule: #2c3136;
+    --card: #1c2024;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font: 17px/1.65 Georgia, "Times New Roman", serif;
+  }
+  main { max-width: 720px; margin: 0 auto; padding: 48px 16px 80px; }
+  .kicker {
+    font: 600 12px/1 system-ui, sans-serif;
+    letter-spacing: .12em; text-transform: uppercase;
+    color: var(--accent); margin: 0 0 12px;
+  }
+  h1 { font-size: 2rem; line-height: 1.2; margin: 0 0 12px; }
+  .byline { color: var(--muted); font: 14px/1.5 system-ui, sans-serif; margin: 0 0 32px; }
+  h2 {
+    font: 600 13px/1 system-ui, sans-serif;
+    letter-spacing: .1em; text-transform: uppercase;
+    color: var(--muted);
+    border-top: 1px solid var(--rule);
+    padding-top: 24px; margin: 40px 0 12px;
+  }
+  .question {
+    background: var(--card);
+    border-left: 3px solid var(--accent);
+    padding: 16px 20px; margin: 0 0 8px;
+    font-size: 1.15rem;
+  }
+  .eq {
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    padding: 14px 16px;
+    font: 15px/1.5 ui-monospace, Menlo, Consolas, monospace;
+    overflow-x: auto;
+  }
+  table { width: 100%; border-collapse: collapse; font: 15px/1.45 system-ui, sans-serif; }
+  th, td { text-align: left; padding: 8px 10px 8px 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  th { color: var(--muted); font-weight: 600; }
+  ol.refs { font-size: 15px; padding-left: 20px; }
+  ol.refs li { margin-bottom: 6px; }
+  a { color: var(--accent); }
+  footer { color: var(--muted); font: 13px/1.5 system-ui, sans-serif; margin-top: 48px; }
+</style>
+</head>
+<body>
+<main>
+  <p class="kicker">Development Economics · Research Proposal</p>
+  <h1>Mobile Money as Informal Insurance: Rainfall Shocks and Consumption Smoothing in Rural Uganda</h1>
+  <p class="byline">Short research project · 2026</p>
+
+  <h2>Research question</h2>
+  <p class="question">When a rainfall shock hits, do rural households that use mobile money smooth consumption better than those that don’t — and is it because they receive more remittances from their network?</p>
+
+  <h2>Motivation</h2>
+  <p>Most rural households in Sub-Saharan Africa have no formal insurance. They cope with bad harvests by drawing on family and friends, but sending money across distance used to be slow and costly. Mobile money cuts that cost sharply. In Kenya, Jack and Suri (2014) found that households using M-Pesa kept their consumption steady after negative shocks, while non-users saw it drop by about 7%. This project asks whether the same holds in Uganda, where mobile money spread later and through a different market structure, and it uses weather shocks that households cannot influence instead of self-reported ones.</p>
+
+  <h2>Hypotheses</h2>
+  <ol>
+    <li><strong>H1:</strong> A drought lowers per-capita consumption less for mobile money users than for non-users.</li>
+    <li><strong>H2:</strong> Users receive more remittances in shock years, and remittances account for much of the difference in H1.</li>
+    <li><strong>H3:</strong> The buffering effect is largest for households far from a bank branch, where the alternatives are worst.</li>
+  </ol>
+
+  <h2>Data</h2>
+  <table>
+    <tr><th>Source</th><th>What it provides</th></tr>
+    <tr><td>Uganda National Panel Survey (World Bank LSMS-ISA)</td><td>Household panel with consumption, remittances, mobile money use, shocks module, and GPS coordinates</td></tr>
+    <tr><td>CHIRPS rainfall</td><td>Satellite rainfall at ~5 km resolution, matched to household location; shock = growing-season rainfall below the 20th percentile of the local 30-year distribution</td></tr>
+    <tr><td>Mobile money agent locations</td><td>Distance to the nearest agent, as a measure of access</td></tr>
+  </table>
+
+  <h2>Empirical strategy</h2>
+  <p>A household fixed-effects panel regression, following Townsend (1994) and Jack and Suri (2014):</p>
+  <div class="eq">ln C<sub>it</sub> = α<sub>i</sub> + δ<sub>rt</sub> + β<sub>1</sub>Shock<sub>it</sub> + β<sub>2</sub>MM<sub>it</sub> + β<sub>3</sub>(Shock<sub>it</sub> × MM<sub>it</sub>) + X<sub>it</sub>′γ + ε<sub>it</sub></div>
+  <p>Here <em>C</em> is per-capita consumption, <em>α<sub>i</sub></em> are household fixed effects, <em>δ<sub>rt</sub></em> are region-by-year fixed effects, and <em>MM</em> indicates mobile money use. The coefficient of interest is <strong>β<sub>3</sub></strong>. If mobile money helps, it should be positive and offset part of the negative β<sub>1</sub>.</p>
+  <p><strong>Identification concern:</strong> households choose whether to use mobile money, and users tend to be richer and better connected. Three responses:</p>
+  <ul>
+    <li>Use distance to the nearest agent in place of, or as an instrument for, individual use.</li>
+    <li>Control for baseline wealth and education interacted with the shock.</li>
+    <li>Run a placebo test: future adoption should not predict how households coped with past shocks.</li>
+  </ul>
+  <p>For H2, re-estimate the model with remittances received as the outcome. Standard errors are clustered at the parish level.</p>
+
+  <h2>Expected contribution</h2>
+  <p>New evidence from outside Kenya on whether mobile money works as informal insurance, using weather shocks that are plausibly exogenous, and a direct test of whether remittances are the channel. The findings speak to policy on agent-network expansion and on mobile money taxes, which Uganda introduced in 2018.</p>
+
+  <h2>Limitations</h2>
+  <ul>
+    <li>Mobile money use is self-reported and measured only in some survey waves.</li>
+    <li>Agent placement is not random, since operators put agents in busier areas.</li>
+    <li>Rainfall captures only covariate shocks. Idiosyncratic shocks such as illness are tested separately using the survey’s shocks module.</li>
+  </ul>
+
+  <h2>Timeline</h2>
+  <table>
+    <tr><th>Weeks</th><th>Task</th></tr>
+    <tr><td>1–2</td><td>Literature review; download and merge UNPS waves</td></tr>
+    <tr><td>3–4</td><td>Build CHIRPS rainfall shocks and link them to households by GPS</td></tr>
+    <tr><td>5–6</td><td>Main regressions, robustness checks, and the remittance channel</td></tr>
+    <tr><td>7–8</td><td>Write-up and presentation</td></tr>
+  </table>
+
+  <h2>Key references</h2>
+  <ol class="refs">
+    <li>Jack, W., &amp; Suri, T. (2014). Risk Sharing and Transactions Costs: Evidence from Kenya’s Mobile Money Revolution. <em>American Economic Review</em>, 104(1), 183–223.</li>
+    <li>Suri, T., &amp; Jack, W. (2016). The long-run poverty and gender impacts of mobile money. <em>Science</em>, 354(6317), 1288–1292.</li>
+    <li>Townsend, R. M. (1994). Risk and Insurance in Village India. <em>Econometrica</em>, 62(3), 539–591.</li>
+    <li>Riley, E. (2018). Mobile money and risk sharing against village shocks. <em>Journal of Development Economics</em>, 135, 43–58.</li>
+    <li>Munyegera, G. K., &amp; Matsumoto, T. (2016). Mobile Money, Remittances, and Household Welfare: Panel Evidence from Rural Uganda. <em>World Development</em>, 79, 127–137.</li>
+    <li>Blumenstock, J. E., Eagle, N., &amp; Fafchamps, M. (2016). Airtime transfers and mobile communications: Evidence in the aftermath of natural disasters. <em>Journal of Development Economics</em>, 120, 157–181.</li>
+  </ol>
+
+  <footer>Data sources: World Bank LSMS-ISA (Uganda National Panel Survey); Climate Hazards Center, UC Santa Barbara (CHIRPS).</footer>
+</main>
+</body>
+</html>
